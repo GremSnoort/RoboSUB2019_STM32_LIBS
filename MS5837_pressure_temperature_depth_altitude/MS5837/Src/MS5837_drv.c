@@ -82,8 +82,13 @@ void MS5837Init( struct MS5837Device* dev )
 		else
 		{
 			st = DRV_CRC_ERROR; // CRC fail
+			size = sprintf( (char *)data, "MS5837 CRC error\n\r" );
+			HAL_UART_Transmit( dev->huart, data, size, 1000 );
 		}
 	}
+	
+	size = sprintf( (char *)data, "MS5837 init SUCCESS!\n\r" );
+	HAL_UART_Transmit( dev->huart, data, size, 1000 );
 }
 
 float MS5837Pressure( struct MS5837Device* dev, float conversion )
