@@ -23,6 +23,9 @@ typedef enum EDrvStatus
 	DRV_CRC_ERROR,
  
 }DrvStatus;
+
+uint16_t size;
+uint8_t data[256];
  
 static uint16_t to_uint16( uint8_t bytes[] )
 {
