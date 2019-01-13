@@ -1,0 +1,23 @@
+/* USER CODE BEGIN Includes */
+#include "sensors/MS5837/MS5837_drv.h"
+/* USER CODE END Includes */
+
+/* USER CODE BEGIN PV */
+MS5837Device ms583730ba_sensor;
+/* USER CODE END PV */
+
+/* USER CODE BEGIN 2 */	
+	ms583730ba_sensor = MS5837GetNewDevice( MS5837_30BA, 1029, &hi2c2, &huart2 );	
+	MS5837Init( &ms583730ba_sensor );	
+	//MS5837SetFluidDensity( &ms583730ba_sensor, 997 );
+/* USER CODE END 2 */
+
+/* Infinite loop */
+/* USER CODE BEGIN WHILE */
+while (1)
+{
+/* USER CODE END WHILE */
+/* USER CODE BEGIN 3 */	
+	MS5837DataToUART( &ms583730ba_sensor );
+}
+/* USER CODE END 3 */

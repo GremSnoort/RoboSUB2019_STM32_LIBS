@@ -7,6 +7,9 @@
 
 #include <math.h>
 
+uint16_t size;
+uint8_t data[256];
+
 void MS5837SetModel( struct MS5837Device* dev, MS5837Model model )
 {
 	dev->model = model;
