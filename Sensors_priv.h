@@ -11,6 +11,7 @@
 #endif
 
 #include <stdint.h>
+#include <math.h>
  
 typedef enum EDrvStatus
 {

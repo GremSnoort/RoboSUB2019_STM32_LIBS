@@ -1,0 +1,22 @@
+/* USER CODE BEGIN Includes */
+#include "sensors/Si7021/Si7021_drv.h"
+/* USER CODE END Includes */
+
+/* USER CODE BEGIN PV */
+Si7021Device si7021_sensor;
+/* USER CODE END PV */
+
+/* USER CODE BEGIN 2 */	
+	si7021_sensor			= Si7021GetNewDevice( &hi2c1, &huart6 );
+/* USER CODE END 2 */
+
+/* Infinite loop */
+/* USER CODE BEGIN WHILE */
+while (1)
+{
+/* USER CODE END WHILE */
+
+/* USER CODE BEGIN 3 */
+	Si7021DataToUART( &si7021_sensor );
+}
+/* USER CODE END 3 */

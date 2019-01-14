@@ -5,10 +5,8 @@
 
 #include "sensors/MS5837/MS5837_drv.h"
 
-#include <math.h>
-
-uint16_t size;
-uint8_t data[256];
+static uint16_t size;
+static uint8_t data[256];
 
 void MS5837SetModel( struct MS5837Device* dev, MS5837Model model )
 {
@@ -249,14 +247,18 @@ DrvStatus MS5837Read( struct MS5837Device* dev )
 
 void MS5837DataToUART( struct MS5837Device* dev )
 {
-	MS5837Read( dev );
+	while ( MS5837Read( dev ) != DRV_SUCCESS )
+	{
+		size = sprintf( (char *)data, "\tMS5837:\tReading data failed\r\n" );
+		HAL_UART_Transmit( dev->huart, data, size, 1000 );		
+	}
 		
 	float pressure = MS5837Pressure( dev, Pa );
 	float temperature = MS5837Temperature( dev );
 	float depth = MS5837Depth( dev );
 	float altitude = MS5837Altitude( dev );
 	
-	size = sprintf( (char *)data, "\tMS5837:\tpressure: %.2f;\ttemperature: %.2f;\tdepth: %.2f;\taltitude: %.2f;\n\r", pressure, temperature, depth, altitude );
+	size = sprintf( (char *)data, "\tMS5837:\tpressure: %.2f Pa;\ttemperature: %.2f oC;\tdepth: %.2f m;\taltitude: %.2f m;\n\r", pressure, temperature, depth, altitude );
 	HAL_UART_Transmit( dev->huart, data, size, 1000);
 }
 
